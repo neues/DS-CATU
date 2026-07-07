@@ -169,7 +169,7 @@ def build_search_url(selected_year, order_type):
     return search_url
 
 
-def extract_search_items(page, download_files=False):
+def extract_search_items(page, download_files=False, locator_timeout=10000):
     """Extract data from all article elements on current page"""
     data = []
     print(f"Extracting data from: {page.url}")
@@ -182,7 +182,6 @@ def extract_search_items(page, download_files=False):
     # Get all article elements
     articles = container.locator("article").all()
 
-    locator_timeout = 10
     for article in articles:
         item_data = {
             "Determination": False,
