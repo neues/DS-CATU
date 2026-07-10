@@ -136,8 +136,8 @@ def write_to_csv(data):
     # Create the output directory if it doesn't exist
     os.makedirs(os.path.dirname(csv_output_file_path), exist_ok=True)
 
-    # Write data to CSV file
-    with open(csv_output_file_path, mode="w", newline="", encoding="utf-8") as csvfile:
+    # Write data to CSV file using utf-8-sig so Windows tools (like Excel) can detect UTF-8 correctly.
+    with open(csv_output_file_path, mode="w", newline="", encoding="utf-8-sig") as csvfile:
         fieldnames = [
             "Title",
             "Upload Date",
