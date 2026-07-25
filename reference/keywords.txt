@@ -16,6 +16,7 @@ occupation
 parties themselves
 peaceful
 reciever
+receiver
 retained
 retention
 security deposit
@@ -37,6 +38,7 @@ s. 34
 section 34
 s 56
 s. 56
+section 56
 section s 56
 s 121
 s. 121
