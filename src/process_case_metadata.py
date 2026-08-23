@@ -6,13 +6,14 @@ csv_output_file_path = "data/summary/processed_case_metadata.csv"
 
 
 def get_info_from_title(title):
-    regex = ( r"(?P<applicant>(Applicant|Appellant)(/Respondent)?)(\s)?"
+    regex = (
+        r"(?P<applicant>(Applicant|Appellant)(/Respondent)?)(\s)?"
         r"(?P<applicant_role>(Land(l)?ord|Tenant|Tenanst|Third Part(y|ies)|\s)(s)?)(\s)*:?(\s)*"
         r"(?P<applicant_names>.*?)(\s)*(–|vs|v|&)?(\s)*"
         r"(?P<respondent>(Respondent|Respondant|Appellant)(/Applicant)?)(\s)*"
         r"(?P<respondent_role>(Land(l)?ord|Tenant|Tenanst|Third Part(y|ies)|\s)(s)?)(\s)*:?(\s)*"
         r"(?P<respondent_names>.*)"
-             )
+    )
 
     match = re.search(regex, title, re.IGNORECASE)
     if not match:
@@ -65,7 +66,6 @@ def get_info_from_title(title):
 
 
 def read_case_metadata(file_path):
-    # Title   Upload Date Subject Determination   DR No.  Determination Doc   Tribunal    TR No.  Tribunal Doc
     output_rows = []
     with open(file_path, "r", encoding="utf-8") as case_metadata:
         csv_reader = csv.DictReader(case_metadata)
@@ -80,6 +80,13 @@ def read_case_metadata(file_path):
                     t_info["tenant_role"],
                     t_info["landlords"],
                     t_info["landlord_role"],
+                    r.get("Upload Date"),
+                    r.get("Subject"),
+                    r.get("Determination"),
+                    r.get("DR No.Determination Doc"),
+                    r.get("Tribunal"),
+                    r.get("TR No."),
+                    r.get("Tribunal Doc"),
                 ]
             )
             output_rows.append(output_row)
@@ -95,14 +102,17 @@ def process_case_metadata(file_paths):
         csv_writer = csv.writer(csv_file)
         csv_writer.writerow(
             [
-                # "Text Filename",
-                # "Determination Date",
-                # "Keywords",
-                # "Address",
                 "Tenant Name(s)",
                 "Tenant Role",
                 "Landlord Name(s)",
                 "Landlord Role",
+                "Upload Date",
+                "Subject",
+                "Determination",
+                "DR No.Determination Doc",
+                "Tribunal",
+                "TR No.",
+                "Tribunal Doc",
             ]
         )
 
