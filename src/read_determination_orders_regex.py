@@ -183,7 +183,7 @@ def find_keywords(text):
     return matches
 
 
-def read_determination_orders(file_path, address_method):
+def read_determination_orders_regex(file_path):
     # Extract the file name
     path, file_name = os.path.split(file_path)
     base_name, extension = os.path.splitext(file_name)
@@ -223,7 +223,7 @@ def read_determination_orders(file_path, address_method):
             )
 
 
-def process_determination_orders(input_folder, address_method):
+def process_determination_orders_regex(input_folder):
     file_paths = get_file_paths(input_folder)
 
     # Write CSV header
@@ -244,38 +244,7 @@ def process_determination_orders(input_folder, address_method):
 
     for file_path in file_paths:
         print(f"Processing: {file_path}")
-        read_determination_orders(file_path, address_method)
+        read_determination_orders_regex(file_path)
 
 
-process_determination_orders(input_folder, address_method="regex")
-
-input_folder = "data/converted_text/determinations"
-keywords_file = "reference/keywords.txt"
-csv_output_file_path = "data/summary/determination_details.csv"
-
-
-def process_determination_orders(input_folder, address_method):
-    file_paths = get_file_paths(input_folder)
-
-    # Write CSV header
-    with open(csv_output_file_path, mode="w", newline="", encoding="utf-8") as csv_file:
-        csv_writer = csv.writer(csv_file)
-        csv_writer.writerow(
-            [
-                "Text Filename",
-                "Determination Date",
-                "Keywords",
-                "Address",
-                "Tenant Name(s)",
-                "Tenant Role",
-                "Landlord Name(s)",
-                "Landlord Role",
-            ]
-        )
-
-    for file_path in file_paths:
-        print(f"Processing: {file_path}")
-        read_determination_orders(file_path, address_method)
-
-
-process_determination_orders(input_folder, address_method="regex")
+process_determination_orders_regex(input_folder)
